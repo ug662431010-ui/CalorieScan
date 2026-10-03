@@ -235,7 +235,11 @@ if (scanBtn) {
                 if (foodNameElement) {
 
                     foodNameElement.textContent =
-                        foodName;
+                        (data.items && data.items.length > 1)
+                            ? data.items.map(function (i) {
+                                return i.food_name + " (" + i.calories + " kcal)";
+                              }).join(" + ")
+                            : foodName;
 
                 }
 

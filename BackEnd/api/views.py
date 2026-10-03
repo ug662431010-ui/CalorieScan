@@ -308,18 +308,43 @@ def scan_food(request):
     except Exception as e:
         return JsonResponse({"success": False, "message": f"Scan failed: {e}"})
 
-    if request.GET.get("debug"):
-        return JsonResponse({"all_predictions": find_predictions(data)})
+    detections = find_predictions(data)
 
-    preds = [p for p in find_predictions(data) if p["confidence"] >= MIN_CONFIDENCE]
-    if not preds:
+    # พิมพ์ทุกอย่างที่โมเดลเห็นลงเทอร์มินัล (ไว้ดูว่าโมเดลเจออะไรบ้างในรูป)
+    print("🤖 DETECTIONS:", [(p["class"], round(p["confidence"], 2)) for p in detections])
+
+    # เก็บทุกเมนูที่มั่นใจพอ โดยเมนูเดียวกันนับ 1 จาน (ถ้าเจอซ้ำให้เอาตัวที่มั่นใจสูงสุด)
+    best_by_class = {}
+    for p in detections:
+        if p["confidence"] < MIN_CONFIDENCE:
+            continue
+        name = p["class"]
+        if name not in best_by_class or p["confidence"] > best_by_class[name]["confidence"]:
+            best_by_class[name] = p
+
+    if not best_by_class:
         return JsonResponse({"success": False, "message": "ไม่พบอาหารในรูป ลองถ่ายใหม่"})
 
-    best = max(preds, key=lambda p: p["confidence"])
-    name = best["class"]
+    # เมนูเหล่านี้ในตารางแคลอรี่นับข้าวรวมไปแล้ว ถ้าเจอ "Rice" ด้วยจะไม่นับซ้ำ
+    # (ไม่ต้องการกฎนี้ ให้ลบ 3 บรรทัดนี้ออก)
+    INCLUDES_RICE = {"Pad krapow", "Fried Rice", "Chicken Rice", "Rice Porridge"}
+    if "Rice" in best_by_class and INCLUDES_RICE & set(best_by_class):
+        del best_by_class["Rice"]
+
+    ordered = sorted(best_by_class.values(), key=lambda p: p["confidence"], reverse=True)
+    items = [
+        {
+            "food_name": p["class"],
+            "calories": CALORIES.get(p["class"], 0),
+            "confidence": round(p["confidence"] * 100),
+        }
+        for p in ordered
+    ]
+
     return JsonResponse({
         "success": True,
-        "food_name": name,
-        "confidence": round(best["confidence"] * 100),
-        "calories": CALORIES.get(name, 0),
+        "food_name": " + ".join(i["food_name"] for i in items),
+        "calories": sum(i["calories"] for i in items),
+        "confidence": min(i["confidence"] for i in items),
+        "items": items,
     })

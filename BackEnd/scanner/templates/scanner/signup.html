@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up - CalorieScan</title>
+
+    <link rel="stylesheet" href="{% static 'scanner/css/style.css' %}">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+<div class="login-page">
+
+    <div class="login-box">
+
+        <h1>Create Account</h1>
+
+        <p>Sign up to start your journey</p>
+
+
+        <form id="signupForm">
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Full Name"
+                required
+            >
+
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email"
+                required
+            >
+
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+            >
+
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                required
+            >
+
+
+            <button type="submit">
+                Sign Up
+            </button>
+
+        </form>
+
+
+        <div class="bottom-link">
+
+            Already have an account?
+
+            <a href="/login/">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Sign Up JavaScript -->
+
+<script>
+
+const signupForm =
+    document.getElementById("signupForm");
+
+
+signupForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("name").value;
+
+    const email =
+        document.getElementById("email").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+    // Check password
+
+    if (password !== confirmPassword) {
+
+        alert("Passwords do not match!");
+
+        return;
+
+    }
+
+
+    // Send data to Django
+
+    try {
+
+        const response = await fetch(
+            "/api/signup/",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                credentials: "include",
+
+                body: JSON.stringify({
+
+                    username: name,
+                    email: email,
+                    password: password
+
+                })
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        // Signup successful
+
+        if (data.success) {
+
+            alert("Account created successfully! 🎉");
+
+            window.location.href =
+                "/login/";
+
+        }
+
+
+        // Signup failed
+
+        else {
+
+            alert(data.message);
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Cannot connect to Django server."
+        );
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,501 @@
+/* =========================================
+CALORIE SCAN PROFILE
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: #faf8ff;
+    color: #202020;
+}
+
+
+/* =========================================
+LAYOUT
+========================================= */
+
+.profile-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+SIDEBAR
+========================================= */
+
+.sidebar {
+    width: 285px;
+    min-height: 100vh;
+
+    background: linear-gradient(
+        180deg,
+        #7c35e8,
+        #7931e8
+    );
+
+    color: white;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    padding: 25px 20px;
+
+    z-index: 100;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 600;
+
+    margin-bottom: 45px;
+
+    padding-left: 5px;
+}
+
+.logo span {
+    margin-left: 5px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    text-decoration: none;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    transition: 0.2s;
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(3px);
+}
+
+.menu-item.active {
+    background: white;
+
+    color: #7835e8;
+
+    font-weight: 600;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+MAIN CONTENT
+========================================= */
+
+.main-content {
+    margin-left: 285px;
+
+    width: calc(100% - 285px);
+
+    padding: 38px 48px;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================
+HEADER
+========================================= */
+
+.profile-header {
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.profile-header p {
+    color: #777;
+    font-size: 15px;
+}
+
+
+/* =========================================
+PROFILE CARD
+========================================= */
+
+.profile-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 32px;
+
+    border: 1px solid #eeeeee;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================================
+PROFILE TITLE
+========================================= */
+
+.profile-title {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding-bottom: 28px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+
+    background: #f0e8ff;
+
+    color: #7c35e8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.profile-title h2 {
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+
+.profile-title p {
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* =========================================
+SECTION TITLE
+========================================= */
+
+.section-title {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+.section-title i {
+    color: #7c35e8;
+}
+
+.section-title h2 {
+    font-size: 20px;
+}
+
+
+/* =========================================
+FORM
+========================================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+
+    margin-bottom: 35px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+
+    color: #555;
+
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 10px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    background: white;
+
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #7c35e8;
+
+    box-shadow: 0 0 0 3px rgba(124, 53, 232, 0.08);
+}
+
+
+/* =========================================
+GOAL
+========================================= */
+
+.goal-box {
+    background: #faf8ff;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+.goal-box label {
+    display: block;
+
+    font-size: 14px;
+
+    color: #555;
+
+    margin-bottom: 8px;
+}
+
+.calorie-input {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.calorie-input input {
+    width: 150px;
+
+    padding: 12px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 15px;
+}
+
+.calorie-input span {
+    color: #777;
+
+    font-size: 14px;
+}
+
+.goal-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    max-width: 350px;
+}
+
+.goal-info i {
+    color: #7c35e8;
+
+    font-size: 22px;
+}
+
+.goal-info p {
+    color: #777;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+SAVE BUTTON
+========================================= */
+
+.save-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding-top: 10px;
+}
+
+.save-btn {
+    border: none;
+
+    background: #7c35e8;
+
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 10px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.save-btn:hover {
+    background: #6827cf;
+
+    transform: translateY(-1px);
+}
+
+.save-message {
+    color: #4caf50;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+FOOTER
+========================================= */
+
+.profile-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #999;
+
+    font-size: 13px;
+
+    padding: 20px 5px 5px;
+}
+
+
+/* =========================================
+RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .main-content {
+        margin-left: 220px;
+
+        width: calc(100% - 220px);
+
+        padding: 30px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .goal-box {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .profile-wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 25px 18px;
+    }
+
+    .profile-header h1 {
+        font-size: 27px;
+    }
+
+    .profile-card {
+        padding: 22px;
+    }
+
+    .profile-footer {
+        flex-direction: column;
+
+        gap: 5px;
+    }
+}

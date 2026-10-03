@@ -1,0 +1,325 @@
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Meal
+import json
+import os, base64, io, requests
+from PIL import Image
+
+ROBOFLOW_URL = "https://serverless.roboflow.com/afifahs-workspace/workflows/foods-project-vfoods-project-pl16z-3-yolo11n-t1-logic"
+MIN_CONFIDENCE = 0.40
+# แคลอรี่โดยประมาณ (kcal) ต่อ 1 จาน / 1 แก้ว / 1 หน่วยบริโภคทั่วไป
+CALORIES = {
+    "Boiled Egg": 78,                 # 1 ฟอง
+    "Chicken Rice": 600,              # ข้าวมันไก่ 1 จาน
+    "Coffee": 5,                      # กาแฟดำ ไม่ใส่น้ำตาล
+    "Fish Chili Paste": 80,           # น้ำพริกปลา 2 ช้อนโต๊ะ
+    "French Fries": 365,              # 1 เสิร์ฟกลาง
+    "Fried Chicken": 250,             # 1 ชิ้น
+    "Fried Chicken Wings": 200,       # 2 ชิ้น
+    "Fried Egg": 90,                  # 1 ฟอง
+    "Fried Rice": 550,                # ข้าวผัด 1 จาน
+    "Fried Sausage": 150,             # 2 ชิ้น
+    "Garlic Chicken": 300,            # 1 เสิร์ฟ
+    "Green Tea": 100,                 # ชาเขียวใส่น้ำตาล 1 แก้ว
+    "Ice": 0,
+    "Iced Cocoa": 200,                # 1 แก้ว
+    "Iced Coffee": 150,               # กาแฟเย็นใส่นมและน้ำตาล 1 แก้ว
+    "Lemonade": 100,                  # 1 แก้ว
+    "Morning glory": 150,             # ผักบุ้งไฟแดง 1 จาน
+    "Omelet": 300,                    # ไข่เจียว 2 ฟอง
+    "Orange Juice": 110,              # 1 แก้ว (250 มล.)
+    "Pad krapow": 550,                # ผัดกะเพราราดข้าว 1 จาน
+    "Pad Thai": 550,                  # 1 จาน
+    "Pink Milk": 200,                 # นมเย็น 1 แก้ว
+    "Rice": 200,                      # ข้าวสวย 1 ถ้วย
+    "Rice Porridge": 250,             # 1 ชาม
+    "Sandwich": 300,                  # 1 ชิ้น
+    "Stir-fried Curry Paste": 250,    # 1 เสิร์ฟ
+    "Stir-fried Mixed Vegetables": 120,  # 1 จาน
+    "Stir-fried Rice Noodles with Soy Sauce": 550,  # ผัดซีอิ๊ว 1 จาน
+    "Thai Iced Tea": 220,             # 1 แก้ว
+    "Water": 0,
+}
+
+
+def find_predictions(data):
+    found = []
+    if isinstance(data, dict):
+        if "class" in data and "confidence" in data:
+            found.append(data)
+        else:
+            for v in data.values():
+                found.extend(find_predictions(v))
+    elif isinstance(data, list):
+        for item in data:
+            found.extend(find_predictions(item))
+    return found
+
+
+# =========================
+# SIGN UP
+# =========================
+
+@csrf_exempt
+def signup(request):
+
+    if request.method == "POST":
+
+        try:
+
+            data = json.loads(request.body)
+
+            username = data.get("username")
+            email = data.get("email")
+            password = data.get("password")
+
+
+            # Check empty fields
+
+            if not username or not email or not password:
+
+                return JsonResponse({
+                    "success": False,
+                    "message": "Please fill in all fields."
+                })
+
+
+            # Check username already exists
+
+            if User.objects.filter(username=username).exists():
+
+                return JsonResponse({
+                    "success": False,
+                    "message": "Username already exists."
+                })
+
+
+            # Check email already exists
+
+            if User.objects.filter(email=email).exists():
+
+                return JsonResponse({
+                    "success": False,
+                    "message": "Email already exists."
+                })
+
+
+            # Create user
+
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password
+            )
+
+
+            # Login automatically
+
+            login(request, user)
+
+
+            return JsonResponse({
+                "success": True,
+                "message": "Account created successfully!",
+                "username": user.username
+            })
+
+
+        except Exception as error:
+
+            return JsonResponse({
+                "success": False,
+                "message": str(error)
+            })
+
+
+    return JsonResponse({
+        "success": False,
+        "message": "POST request required."
+    })
+
+
+# =========================
+# LOGIN
+# =========================
+
+@csrf_exempt
+def login_user(request):
+
+    if request.method == "POST":
+
+        data = json.loads(request.body)
+
+        email = data.get("email")
+        password = data.get("password")
+
+        try:
+
+            user = User.objects.get(email=email)
+
+            user = authenticate(
+                username=user.username,
+                password=password
+            )
+
+            if user is not None:
+
+                login(request, user)
+
+                return JsonResponse({
+                    "success": True,
+                    "username": user.username
+                })
+
+            else:
+
+                return JsonResponse({
+                    "success": False,
+                    "message": "Invalid email or password."
+                })
+
+        except User.DoesNotExist:
+
+            return JsonResponse({
+                "success": False,
+                "message": "Email not found."
+            })
+
+    return JsonResponse({
+        "success": False,
+        "message": "POST request required."
+    })
+
+
+
+# =========================
+# ADD MEAL
+# =========================
+
+@csrf_exempt
+def add_meal(request):
+
+    if request.method != "POST":
+
+        return JsonResponse({
+            "success": False,
+            "message": "POST request required."
+        })
+
+
+    # Check login
+
+    if not request.user.is_authenticated:
+
+        return JsonResponse({
+            "success": False,
+            "message": "Please login first."
+        })
+
+
+    try:
+
+        data = json.loads(request.body)
+
+        food_name = data.get("food_name")
+        calories = data.get("calories")
+
+
+        # Check data
+
+        if not food_name or calories is None:
+
+            return JsonResponse({
+                "success": False,
+                "message": "Food name and calories are required."
+            })
+
+
+        # Save meal
+
+        meal = Meal.objects.create(
+
+            user=request.user,
+
+            food_name=food_name,
+
+            calories=calories
+
+        )
+
+
+        return JsonResponse({
+
+            "success": True,
+
+            "message": "Meal saved successfully!",
+
+            "meal": {
+
+                "id": meal.id,
+
+                "food_name": meal.food_name,
+
+                "calories": meal.calories
+
+            }
+
+        })
+
+
+    except Exception as error:
+
+        return JsonResponse({
+
+            "success": False,
+
+            "message": str(error)
+
+        })
+
+@csrf_exempt
+def scan_food(request):
+    if request.method != "POST":
+        return JsonResponse({"success": False, "message": "POST request required."})
+
+    file = request.FILES.get("image")
+    if not file:
+        return JsonResponse({"success": False, "message": "No image uploaded."})
+
+    try:
+        img = Image.open(file).convert("RGB")
+        img.thumbnail((1024, 1024))
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=85)
+        b64 = base64.b64encode(buf.getvalue()).decode()
+
+        res = requests.post(
+            ROBOFLOW_URL,
+            json={
+                "api_key": os.environ["ROBOFLOW_API_KEY"],
+                "inputs": {"image": {"type": "base64", "value": b64}},
+            },
+            timeout=30,
+        )
+        res.raise_for_status()
+        data = res.json()
+    except Exception as e:
+        return JsonResponse({"success": False, "message": f"Scan failed: {e}"})
+
+    if request.GET.get("debug"):
+        return JsonResponse({"all_predictions": find_predictions(data)})
+
+    preds = [p for p in find_predictions(data) if p["confidence"] >= MIN_CONFIDENCE]
+    if not preds:
+        return JsonResponse({"success": False, "message": "ไม่พบอาหารในรูป ลองถ่ายใหม่"})
+
+    best = max(preds, key=lambda p: p["confidence"])
+    name = best["class"]
+    return JsonResponse({
+        "success": True,
+        "food_name": name,
+        "confidence": round(best["confidence"] * 100),
+        "calories": CALORIES.get(name, 0),
+    })

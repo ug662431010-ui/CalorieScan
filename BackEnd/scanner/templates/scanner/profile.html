@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile - CalorieScan</title>
+
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    >
+
+
+    <!-- Profile CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{% static 'scanner/css/profile.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="profile-wrapper">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            🌙
+
+            <span>
+                CalorieScan
+            </span>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+    <a href="/dashboard/" class="menu-item">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="/scan/" class="menu-item">
+        <i class="fa-solid fa-camera"></i>
+        <span>Scan Food</span>
+    </a>
+
+    <a href="/meal-history/" class="menu-item">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>Meal History</span>
+    </a>
+
+    <a href="/statistics/" class="menu-item">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Statistics</span>
+    </a>
+
+    <a href="/goal/" class="menu-item">
+        <i class="fa-solid fa-bullseye"></i>
+        <span>Goal</span>
+    </a>
+
+    <a href="/profile/" class="menu-item active">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </a>
+
+    <a href="/settings/" class="menu-item">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+    </a>
+
+</nav>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+
+        <div class="profile-header">
+
+
+            <div>
+
+                <h1>
+                    My Profile 👤
+                </h1>
+
+                <p>
+                    Manage your personal information.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= PROFILE CARD ================= -->
+
+        <section class="profile-card">
+
+
+            <!-- Profile title -->
+
+            <div class="profile-title">
+
+
+                <div class="profile-avatar">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h2 id="displayName">
+                        User
+                    </h2>
+
+                    <p>
+                        CalorieScan Member
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= PERSONAL INFORMATION ================= -->
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-id-card"></i>
+
+                <h2>
+                    Personal Information
+                </h2>
+
+            </div>
+
+
+
+            <div class="form-grid">
+
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                    >
+
+                </div>
+
+
+
+                <!-- Age -->
+
+                <div class="form-group">
+
+                    <label>
+                        Age
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        placeholder="Enter your age"
+                    >
+
+                </div>
+
+
+
+                <!-- Gender -->
+
+                <div class="form-group">
+
+                    <label>
+                        Gender
+                    </label>
+
+                    <select id="gender">
+
+                        <option value="">
+                            Select gender
+                        </option>
+
+                        <option value="female">
+                            Female
+                        </option>
+
+                        <option value="male">
+                            Male
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Weight -->
+
+                <div class="form-group">
+
+                    <label>
+                        Weight (kg)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="weight"
+                        placeholder="e.g. 55"
+                    >
+
+                </div>
+
+
+
+                <!-- Height -->
+
+                <div class="form-group">
+
+                    <label>
+                        Height (cm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="height"
+                        placeholder="e.g. 160"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= HEALTH GOAL ================= -->
+
+            <div class="section-title">
+
+                <i class="fa-solid fa-bullseye"></i>
+
+                <h2>
+                    Health Goal
+                </h2>
+
+            </div>
+
+
+
+            <div class="goal-box">
+
+
+                <div>
+
+                    <label>
+                        Daily Calorie Goal
+                    </label>
+
+
+                    <div class="calorie-input">
+
+                        <input
+                            type="number"
+                            id="calorieGoal"
+                            value="2000"
+                        >
+
+                        <span>
+                            kcal / day
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="goal-info">
+
+                    <i class="fa-solid fa-fire"></i>
+
+                    <p>
+                        Your recommended calorie goal is calculated from your age, gender, weight and height.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================= SAVE ================= -->
+
+            <div class="save-area">
+
+
+                <button
+                    type="button"
+                    id="saveProfile"
+                    class="save-btn"
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Save Profile
+
+                </button>
+
+
+                <span
+                    id="saveMessage"
+                    class="save-message"
+                ></span>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="profile-footer">
+
+            <p>
+                © 2026 CalorieScan AI
+            </p>
+
+            <p>
+                Eat smart. Live healthy. 💜
+            </p>
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+
+<script src="{% static 'scanner/js/userStorage.js' %}"></script>
+<!-- Profile JS -->
+
+<script
+    src="{% static 'scanner/js/profile.js' %}"
+></script>
+
+
+</body>
+
+</html>

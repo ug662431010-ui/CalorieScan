@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Statistics - CalorieScan</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="{% static 'scanner/css/dashboard.css' %}">
+
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🌙 <span>CalorieScan</span>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="/dashboard/" class="menu-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/scan/" class="menu-item">
+                <i class="fa-solid fa-camera"></i>
+                <span>Scan Food</span>
+            </a>
+
+            <a href="/meal-history/" class="menu-item">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Meal History</span>
+            </a>
+
+            <a href="/statistics/" class="menu-item active">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Statistics</span>
+            </a>
+
+            <a href="/goal/" class="menu-item">
+                <i class="fa-solid fa-bullseye"></i>
+                <span>Goal</span>
+            </a>
+
+            <a href="/profile/" class="menu-item">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+
+            <a href="/settings/" class="menu-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <h1>
+                    Statistics 📊
+                </h1>
+
+                <p>
+                    Track your nutrition progress.
+                </p>
+
+            </div>
+
+            <div class="date-box">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <span id="todayDate"></span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <section class="top-grid">
+
+            <div class="dashboard-card">
+
+                <div class="card-title">
+
+                    <h2>
+                        Total Calories
+                    </h2>
+
+                    <i class="fa-solid fa-fire"></i>
+
+                </div>
+
+                <div class="calorie-number">
+
+                    <span id="totalCalories">
+                        0
+                    </span>
+
+                    <small>
+                        kcal
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-title">
+
+                    <h2>
+                        Average Calories
+                    </h2>
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+                <div class="calorie-number">
+
+                    <span id="averageCalories">
+                        0
+                    </span>
+
+                    <small>
+                        kcal / meal
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+       
+        <!-- ================= WEEKLY ================= -->
+
+        <section class="dashboard-card weekly-card">
+
+            <div class="card-title">
+
+                <h2>
+                    📈 Calories - Last 7 Days
+                </h2>
+
+            </div>
+
+            <div class="weekly-chart-container">
+
+                <canvas id="statisticsChart"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= INSIGHT ================= -->
+
+        <section class="dashboard-card">
+
+            <div class="card-title">
+
+                <h2>
+                    💡 Nutrition Insight
+                </h2>
+
+            </div>
+
+            <p id="statisticsMessage">
+                Start adding meals to see your nutrition statistics.
+            </p>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 CalorieScan AI
+            </p>
+
+            <p>
+                Eat smart. Live healthy. 💜
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="{% static 'scanner/js/userStorage.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="{% static 'scanner/js/statistics.js' %}"></script>
+
+</body>
+
+</html>

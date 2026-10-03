@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Goal - CalorieScan</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="{% static 'scanner/css/dashboard.css' %}">
+
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🌙 <span>CalorieScan</span>
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="/dashboard/" class="menu-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/scan/" class="menu-item">
+                <i class="fa-solid fa-camera"></i>
+                <span>Scan Food</span>
+            </a>
+
+            <a href="/meal-history/" class="menu-item">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Meal History</span>
+            </a>
+
+            <a href="/statistics/" class="menu-item">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Statistics</span>
+            </a>
+
+            <a href="/goal/" class="menu-item active">
+                <i class="fa-solid fa-bullseye"></i>
+                <span>Goal</span>
+            </a>
+
+            <a href="/profile/" class="menu-item">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+
+            <a href="/settings/" class="menu-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <div class="dashboard-header">
+
+            <div>
+
+                <h1>
+                    My Goal 🎯
+                </h1>
+
+                <p>
+                    Track your daily calorie goal.
+                </p>
+
+            </div>
+
+            <div class="date-box">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <span id="todayDate"></span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= GOAL CARD ================= -->
+
+        <section class="dashboard-card">
+
+            <div class="card-title">
+
+                <h2>
+                    Daily Calorie Goal
+                </h2>
+
+                <i class="fa-solid fa-fire"></i>
+
+            </div>
+
+
+            <div class="calorie-number">
+
+                <span id="goalCalories">
+                    2000
+                </span>
+
+                <small>
+                    kcal
+                </small>
+
+            </div>
+
+
+            <p>
+                Today's intake:
+                <strong>
+                    <span id="todayCalories">
+                        0
+                    </span>
+                    kcal
+                </strong>
+            </p>
+
+
+            <!-- Progress -->
+
+            <div class="progress-container">
+
+                <div
+                    class="progress-fill"
+                    id="goalProgress"
+                ></div>
+
+            </div>
+
+
+            <p
+                class="remaining"
+                id="goalMessage"
+            >
+                2000 kcal remaining
+            </p>
+
+        </section>
+
+
+        <!-- ================= PROFILE INFO ================= -->
+
+        <section class="dashboard-card">
+
+            <div class="card-title">
+
+                <h2>
+                    👤 Your Information
+                </h2>
+
+            </div>
+
+
+            <div class="nutrition-grid">
+
+                <div class="nutrition-card">
+
+                    <div class="nutrition-icon">
+                        🎂
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Age
+                        </p>
+
+                        <h3 id="userAge">
+                            -
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="nutrition-card">
+
+                    <div class="nutrition-icon">
+                        ⚖️
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Weight
+                        </p>
+
+                        <h3 id="userWeight">
+                            -
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="nutrition-card">
+
+                    <div class="nutrition-icon">
+                        📏
+                    </div>
+
+                    <div>
+
+                        <p>
+                            Height
+                        </p>
+
+                        <h3 id="userHeight">
+                            -
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= AI RECOMMENDATION ================= -->
+
+        <section class="dashboard-card">
+
+            <div class="card-title">
+
+                <h2>
+                    🤖 Calorie Recommendation
+                </h2>
+
+            </div>
+
+
+            <p id="recommendation">
+
+                Complete your profile to get a calorie recommendation.
+
+            </p>
+
+
+            <br>
+
+
+            <a
+                href="/profile/"
+                class="view-all-btn"
+            >
+                Edit Profile
+            </a>
+
+        </section>
+
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 CalorieScan AI
+            </p>
+
+            <p>
+                Eat smart. Live healthy. 💜
+            </p>
+
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="{% static 'scanner/js/userStorage.js' %}"></script>
+<script src="{% static 'scanner/js/goal.js' %}"></script>
+
+</body>
+
+</html>

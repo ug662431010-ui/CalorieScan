@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CalorieScan AI</title>
+
+    <link rel="stylesheet" href="{% static 'scanner/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!--========== HEADER ==========-->
+
+    <header class="header">
+
+        <div class="logo">
+            🌙 CalorieScan
+        </div>
+
+        <nav class="navbar">
+
+            <a href="/">Home</a>
+            <a href="#features">Features</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+
+        </nav>
+
+        <div class="buttons">
+
+    <a href="/login/" class="login-btn">
+        Login
+    </a>
+
+    <a href="/signup/" class="signup-btn">
+        Sign Up
+    </a>
+
+        </div>
+
+    </header>
+
+    <!--========== HERO ==========-->
+
+    <section class="hero">
+
+    <div class="hero-text">
+
+        <h1>
+            Scan Food,<br>
+            <span>Know Calories.</span>
+        </h1>
+
+        <p>
+            Track your meals effortlessly with AI-powered
+            food recognition and calorie analysis.
+        </p>
+
+        <button class="btn-main" onclick="location.href='/signup/'">
+            Get Started →
+        </button>
+
+    </div>
+
+    <div class="hero-image">
+
+        <div style="font-size:160px;text-align:center;">🍛</div>
+
+    </div>
+
+</section>
+
+    <section class="features" id="features">
+
+    <div class="card">
+
+        🤖
+
+        <h3>AI Scan</h3>
+
+        <p>Detect food instantly</p>
+
+    </div>
+
+    <div class="card">
+
+        🔥
+
+        <h3>Calories</h3>
+
+        <p>Count automatically</p>
+
+    </div>
+
+    <div class="card">
+
+        📈
+
+        <h3>Statistics</h3>
+
+        <p>Track every day</p>
+
+    </div>
+
+    <div class="card">
+
+        ❤️
+
+        <h3>Healthy</h3>
+
+        <p>Reach your goal</p>
+
+    </div>
+
+</section>
+
+</body>
+
+</html>

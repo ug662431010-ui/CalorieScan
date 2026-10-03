@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scan Food - CalorieScan</title>
+
+    <link rel="stylesheet" href="{% static 'scanner/css/style.css' %}">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+<div class="scan-page">
+
+    <h1>🍽 Scan Your Food</h1>
+
+    <a href="/dashboard/" class="back-button">
+        ← Back to Dashboard
+    </a>
+
+    <p>Upload an image or take a photo of your food.</p>
+
+
+    <div class="upload-box">
+
+        <!-- ================= PREVIEW ================= -->
+
+        <div class="preview-box">
+
+            <img
+                id="preview"
+                src="https://placehold.co/350x250?text=Food+Preview"
+                alt="Food Preview"
+            >
+
+        </div>
+
+
+        <!-- ================= UPLOAD ================= -->
+
+        <label for="imageInput" class="upload-button">
+            📁 Upload Image
+        </label>
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+            hidden
+        >
+
+
+        <!-- ================= CAMERA ================= -->
+
+        <button
+            type="button"
+            id="cameraBtn"
+            class="camera-button"
+        >
+            📷 Take Photo
+        </button>
+
+
+        <!-- ================= CAMERA AREA ================= -->
+
+        <div
+            id="cameraContainer"
+            class="camera-container"
+            style="display:none;"
+        >
+
+            <video
+                id="camera"
+                autoplay
+                playsinline
+            ></video>
+
+            <button
+                type="button"
+                id="captureBtn"
+                class="capture-button"
+            >
+                📸 Capture
+            </button>
+
+            <button
+                type="button"
+                id="closeCameraBtn"
+                class="close-camera-button"
+            >
+                ✕ Close Camera
+            </button>
+
+        </div>
+
+
+<!-- ================= SCAN ================= -->
+
+<button
+    id="scanBtn"
+    type="button"
+>
+    Scan Food 🔍
+</button>
+
+<div id="debugMessage">
+    Ready to scan 🍽️
+</div>
+        <!-- Loading -->
+
+        <p
+            id="loading"
+            style="display:none;"
+        >
+            ⏳ Scanning...
+        </p>
+
+
+        <!-- ================= RESULT ================= -->
+
+        <div class="result-card">
+
+            <h2>Prediction Result</h2>
+
+            <hr>
+
+            <p>
+                <strong>Food :</strong>
+                <span id="foodName">-</span>
+            </p>
+
+            <p>
+                <strong>Calories :</strong>
+                <span id="calories">-</span>
+            </p>
+
+            <p>
+                <strong>Confidence :</strong>
+                <span id="confidence">-</span>
+            </p>
+            <label for="mealType">
+    <strong>Meal Type:</strong>
+</label>
+
+<select id="mealType">
+    <option value="Breakfast">Breakfast 🌅</option>
+    <option value="Lunch">Lunch ☀️</option>
+    <option value="Dinner">Dinner 🌙</option>
+    <option value="Snack">Snack 🍎</option>
+</select>
+
+            <button
+                type="button"
+                id="addMeal"
+            >
+                ➕ Add to Meal
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{% static 'scanner/js/userStorage.js' %}"></script>
+
+<script src="{% static 'scanner/js/scan.js' %}"></script>
+
+</body>
+</html>

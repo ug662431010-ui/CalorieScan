@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - CalorieScan</title>
+
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    >
+
+
+    <!-- Dashboard CSS -->
+
+    <link
+        rel="stylesheet" href="{% static 'scanner/css/dashboard.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard-wrapper">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            🌙
+
+            <span>
+                CalorieScan
+            </span>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+    <a href="/dashboard/" class="menu-item active">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="/scan/" class="menu-item">
+        <i class="fa-solid fa-camera"></i>
+        <span>Scan Food</span>
+    </a>
+
+    <a href="/meal-history/" class="menu-item">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>Meal History</span>
+    </a>
+
+    <a href="/statistics/" class="menu-item">
+        <i class="fa-solid fa-chart-column"></i>
+        <span>Statistics</span>
+    </a>
+
+    <a href="/goal/" class="menu-item">
+        <i class="fa-solid fa-bullseye"></i>
+        <span>Goal</span>
+    </a>
+
+    <a href="/profile/" class="menu-item">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </a>
+
+    <a href="/settings/" class="menu-item">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+    </a>
+
+</nav>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <div class="dashboard-header">
+
+
+            <div>
+
+                <h1>
+
+                    Good Morning,
+
+                    <span id="userName">
+                        User
+                    </span>
+
+                    👋
+
+                </h1>
+
+
+                <p>
+                    Let's check today's progress.
+                </p>
+
+            </div>
+
+
+            <div class="date-box">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <span id="todayDate"></span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================= TOP CARDS ================= -->
+
+        <section class="top-grid">
+
+
+            <!-- TODAY'S CALORIES -->
+
+            <div class="dashboard-card calorie-card">
+
+
+                <div class="card-title">
+
+                    <h2>
+                        Today's Calories
+                    </h2>
+
+                    <i class="fa-solid fa-fire"></i>
+
+                </div>
+
+
+                <div class="calorie-number">
+
+                    <span id="totalCalories">
+                        0
+                    </span>
+
+                    <small>
+                        kcal
+                    </small>
+
+                </div>
+
+
+                <p class="goal-text">
+
+                    Goal :
+
+                    <span id="dailyGoal">
+                        2000
+                    </span>
+
+                    kcal
+
+                </p>
+
+
+                <!-- Progress -->
+
+                <div class="progress-container">
+
+                    <div
+                        class="progress-fill"
+                        id="calorieProgress"
+                    ></div>
+
+                </div>
+
+
+                <p
+                    class="remaining"
+                    id="remainingCalories"
+                >
+                    2000 kcal Remaining
+                </p>
+
+
+            </div>
+
+
+
+            <!-- CALORIES BY MEAL -->
+
+            <div class="dashboard-card meal-chart-card">
+
+
+                <div class="card-title">
+
+                    <h2>
+                        Calories by Meal
+                    </h2>
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas
+                        id="mealChart"
+                    ></canvas>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= RECENT MEALS ================= -->
+
+        <section class="dashboard-card recent-meals">
+
+
+            <div class="card-title">
+
+                <h2>
+                    🍽️ Recent Meals
+                </h2>
+
+
+                <a
+                    href="/meal-history/"
+                    class="view-all-btn"
+                >
+                    View All
+                </a>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Food
+                            </th>
+
+                            <th>
+                                Calories
+                            </th>
+
+                            <th>
+                                Meal
+                            </th>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="mealTableBody"
+                    >
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= WEEKLY CALORIES ================= -->
+
+        <section class="dashboard-card weekly-card">
+
+
+            <div class="card-title">
+
+                <h2>
+                    📈 Weekly Calories
+                </h2>
+
+
+                <span class="weekly-label">
+                    Last 7 Days
+                </span>
+
+            </div>
+
+
+            <div class="weekly-chart-container">
+
+                <canvas
+                    id="weeklyChart"
+                ></canvas>
+
+            </div>
+
+                    <!-- ================= WHAT SHOULD I EAT TODAY ================= -->
+
+        <section class="dashboard-card food-recommendation-card">
+
+            <div class="card-title">
+
+                <h2>
+                    🍽️ วันนี้กินอะไรดี?
+                </h2>
+
+                <button
+                    type="button"
+                    id="randomFoodBtn"
+                    class="random-food-btn"
+                >
+                    🔄 สุ่มเมนู
+                </button>
+
+            </div>
+
+
+            <p class="food-recommendation-text">
+                เหลือ
+                <strong id="foodRemainingCalories">
+                    0
+                </strong>
+                kcal สำหรับวันนี้
+            </p>
+
+
+            <div
+                id="foodRecommendationList"
+                class="food-recommendation-list"
+            >
+            </div>
+
+        </section>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer class="dashboard-footer">
+
+            <p>
+                © 2026 CalorieScan AI
+            </p>
+
+            <p>
+                Eat smart. Live healthy. 💜
+            </p>
+
+        </footer>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- Chart.js -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js"
+></script>
+
+
+<!-- Dashboard JS -->
+
+<script src="{% static 'scanner/js/userStorage.js' %}"></script>
+<script src="{% static 'scanner/js/dascboard.js' %}"></script>
+
+
+
+</body>
+
+</html>

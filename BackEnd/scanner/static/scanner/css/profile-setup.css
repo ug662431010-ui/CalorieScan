@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family: "Poppins", sans-serif;
+
+    background: #f7f3fb;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.profile-page {
+
+    width: 100%;
+
+    padding: 30px;
+
+}
+
+
+.profile-card {
+
+    width: 100%;
+
+    max-width: 550px;
+
+    margin: auto;
+
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.logo {
+
+    text-align: center;
+
+    font-size: 24px;
+
+    font-weight: 600;
+
+    margin-bottom: 25px;
+
+}
+
+
+.profile-card h1 {
+
+    text-align: center;
+
+    font-size: 28px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.subtitle {
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.form-group {
+
+    margin-bottom: 18px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    margin-bottom: 7px;
+
+}
+
+
+.form-group input,
+.form-group select {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 12px;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+}
+
+
+.form-group input:focus,
+.form-group select:focus {
+
+    border-color: #9b7acb;
+
+}
+
+
+.continue-btn {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 14px;
+
+    margin-top: 10px;
+
+    border-radius: 12px;
+
+    background: #8f6bb3;
+
+    color: white;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+}
+
+
+.continue-btn:hover {
+
+    opacity: 0.9;
+
+}
+
+
+@media (max-width: 600px) {
+
+    .profile-card {
+
+        padding: 25px;
+
+    }
+
+    .profile-card h1 {
+
+        font-size: 23px;
+
+    }
+
+}

@@ -1,0 +1,515 @@
+/* ================================
+   SETTINGS PAGE
+================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family: "Poppins", sans-serif;
+
+    background: #f9f9fb;
+
+    color: #22223b;
+
+}
+
+
+/* ================================
+   LAYOUT
+================================ */
+
+.dashboard-wrapper {
+
+    display: flex;
+
+    min-height: 100vh;
+
+}
+
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.sidebar {
+
+    width: 250px;
+
+    min-height: 100vh;
+
+    background: #7c2ff2;
+
+    padding: 28px 18px;
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    bottom: 0;
+
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    padding: 0 15px 30px;
+
+    border-bottom: 1px solid
+        rgba(255, 255, 255, 0.15);
+
+}
+
+
+.sidebar-menu {
+
+    margin-top: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+.menu-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 14px 16px;
+
+    color:  white;
+
+    text-decoration: none;
+
+    border-radius: 14px;
+
+    transition: 0.2s;
+
+}
+
+
+.menu-item:hover {
+
+    background: rgba(255, 255, 255, 0.12);
+
+}
+
+
+.menu-item.active {
+
+    background: white;
+
+    color: #7c2ff2;
+
+}
+
+
+.menu-item i {
+
+    width: 22px;
+
+    text-align: center;
+
+}
+
+
+/* ================================
+   MAIN CONTENT
+================================ */
+
+.main-content {
+
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    padding: 45px 55px;
+
+    max-width: 1200px;
+
+}
+
+
+.settings-header {
+
+    margin-bottom: 30px;
+
+}
+
+
+.settings-header h1 {
+
+    font-size: 32px;
+
+    margin-bottom: 6px;
+
+}
+
+
+.settings-header p {
+
+    color: #777;
+
+    font-size: 15px;
+
+}
+
+
+/* ================================
+   SETTINGS CARD
+================================ */
+
+.settings-card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(60, 45, 120, 0.08);
+
+    border: 1px solid #eeeafd;
+
+}
+
+
+.settings-card-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.settings-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 14px;
+
+    background: #f0ebff;
+
+    color: #7456d5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+
+}
+
+
+.settings-card-title h2 {
+
+    font-size: 21px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.settings-card-title p {
+
+    color: #888;
+
+    font-size: 13px;
+
+}
+
+
+/* ================================
+   ACCOUNT INFO
+================================ */
+
+.account-info {
+
+    border-top: 1px solid #eee;
+
+    border-bottom: 1px solid #eee;
+
+    margin-bottom: 20px;
+
+}
+
+
+.info-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 17px 5px;
+
+}
+
+
+.info-row + .info-row {
+
+    border-top: 1px solid #eee;
+
+}
+
+
+.info-row span {
+
+    color: #777;
+
+}
+
+
+.info-row strong {
+
+    color: #272344;
+
+}
+
+
+/* ================================
+   PROFILE BUTTON
+================================ */
+
+.profile-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 11px 18px;
+
+    border: 2px solid #8064d9;
+
+    border-radius: 12px;
+
+    color: #7456d5;
+
+    text-decoration: none;
+
+    font-weight: 500;
+
+    transition: 0.2s;
+
+}
+
+
+.profile-btn:hover {
+
+    background: #8064d9;
+
+    color: white;
+
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+.logout-card {
+
+    border: 1px solid #ffd6dc;
+
+    background: #fffafb;
+
+}
+
+
+.logout-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 14px;
+
+    background: #ffe6ea;
+
+    color: #e64b62;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+
+}
+
+
+.logout-btn {
+
+    border: none;
+
+    background: #e84d63;
+
+    color: white;
+
+    padding: 13px 25px;
+
+    border-radius: 12px;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    transition: 0.2s;
+
+}
+
+
+.logout-btn:hover {
+
+    background: #d83d53;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+.settings-footer {
+
+    text-align: center;
+
+    color: #888;
+
+    font-size: 13px;
+
+    padding: 25px 0;
+
+}
+
+
+.settings-footer p:first-child {
+
+    margin-bottom: 5px;
+
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 800px) {
+
+    .sidebar {
+
+        width: 210px;
+
+    }
+
+
+    .main-content {
+
+        margin-left: 210px;
+
+        width: calc(100% - 210px);
+
+        padding: 30px;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .sidebar {
+
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+
+    }
+
+
+    .dashboard-wrapper {
+
+        flex-direction: column;
+
+    }
+
+
+    .main-content {
+
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 25px 18px;
+
+    }
+
+
+    .info-row {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 5px;
+
+    }
+
+}

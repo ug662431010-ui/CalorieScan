@@ -43,4 +43,6 @@ def settings(request):
 def profile_setup(request):
     return render(request, "scanner/peofile-setup.html")
 
+def admin_login(request):
+    return render(request, "scanner/admin-login.html")
 # Create your views here.

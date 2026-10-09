@@ -3,51 +3,67 @@
 
 <head>
     {% load static %}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CalorieScan AI</title>
 
-    <link rel="stylesheet" href="{% static 'scanner/css/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="{% static 'scanner/css/style.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
 
-    <!--========== HEADER ==========-->
+<!-- ================= HEADER ================= -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
-            🌙 CalorieScan
-        </div>
+    <div class="logo">
+        🌙 CalorieScan
+    </div>
 
-        <nav class="navbar">
+    <nav class="navbar">
 
-            <a href="/">Home</a>
-            <a href="#features">Features</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+        <a href="/">Home</a>
 
-        </nav>
+        <a href="#features">
+            Features
+        </a>
 
-        <div class="buttons">
+        <a href="#">
+            About
+        </a>
 
-    <a href="/login/" class="login-btn">
-        Login
-    </a>
+        <a href="#">
+            Contact
+        </a>
 
-    <a href="/signup/" class="signup-btn">
-        Sign Up
-    </a>
+    </nav>
 
-        </div>
+    <div class="buttons">
 
-    </header>
+        <a href="/login/"
+           class="login-btn">
+            Login
+        </a>
 
-    <!--========== HERO ==========-->
+        <a href="/signup/"
+           class="signup-btn">
+            Sign Up
+        </a>
 
-    <section class="hero">
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
 
     <div class="hero-text">
 
@@ -57,68 +73,147 @@
         </h1>
 
         <p>
-            Track your meals effortlessly with AI-powered
-            food recognition and calorie analysis.
+            สแกนอาหารของคุณ
+            <br>
+            คำนวณแคลอรีได้ง่ายด้วย AI
         </p>
 
-        <button class="btn-main" onclick="location.href='/signup/'">
+        <button
+            class="btn-main"
+            onclick="location.href='/signup/'">
+
             Get Started →
+            
         </button>
 
     </div>
 
+
+    <!-- ================= PHONE MOCKUP ================= -->
+
     <div class="hero-image">
 
-        <div style="font-size:160px;text-align:center;">🍛</div>
+        <div class="phone">
+
+            <div class="phone-top">
+                CalorieScan
+            </div>
+
+            <div class="food-image">
+                <img src="{% static 'scanner/images/chicken fried.jpg' %}" alt="Food">
+            </div>
+
+            <div class="calorie-label label-one">
+                Rice
+                <strong>200 kcal</strong>
+            </div>
+
+            <div class="calorie-label label-two">
+                Egg
+                <strong>90 kcal</strong>
+            </div>
+
+            <div class="calorie-label label-three">
+                Chicken
+                <strong>250 kcal</strong>
+            </div>
+
+            <div class="total-calories">
+
+                <span>Total</span>
+
+                <strong>
+                    540
+                </strong>
+
+                <small>
+                    kcal
+                </small>
+
+            </div>
+
+        </div>
 
     </div>
 
 </section>
 
-    <section class="features" id="features">
+
+<!-- ================= FEATURES ================= -->
+
+<section
+    class="features"
+    id="features">
 
     <div class="card">
 
-        🤖
+        <div class="card-icon">
+            🤖
+        </div>
 
-        <h3>AI Scan</h3>
+        <h3>
+            AI Scan
+        </h3>
 
-        <p>Detect food instantly</p>
+        <p>
+            Detect food instantly
+        </p>
 
     </div>
 
+
     <div class="card">
 
-        🔥
+        <div class="card-icon">
+            🔥
+        </div>
 
-        <h3>Calories</h3>
+        <h3>
+            Calories
+        </h3>
 
-        <p>Count automatically</p>
+        <p>
+            Count calories automatically
+        </p>
 
     </div>
 
+
     <div class="card">
 
-        📈
+        <div class="card-icon">
+            📈
+        </div>
 
-        <h3>Statistics</h3>
+        <h3>
+            Statistics
+        </h3>
 
-        <p>Track every day</p>
+        <p>
+            Track your daily calories
+        </p>
 
     </div>
 
+
     <div class="card">
 
-        ❤️
+        <div class="card-icon">
+            ❤️
+        </div>
 
-        <h3>Healthy</h3>
+        <h3>
+            Healthy
+        </h3>
 
-        <p>Reach your goal</p>
+        <p>
+            Reach your health goals
+        </p>
 
     </div>
 
 </section>
+
 
 </body>
-
 </html>

@@ -15,4 +15,8 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("settings/", views.settings, name="settings"),
     path("profile-setup/", views.profile_setup, name="profile-setup"),
+    path("admin-users/", views.admin_users, name="admin-users"),
+    path("admin-foods/", views.admin_foods, name="admin-foods"),
+    path("admin-scan/", views.admin_scan, name="admin-scan"),
+    path("logout/", views.logout_view, name="logout"),
 ]

@@ -383,6 +383,51 @@ function deleteMeal(index) {
 }
 
 
+async function loadMealsFromAPI() {
+    try {
+        const response = await fetch("/api/meals/", {
+            method: "GET",
+            credentials: "same-origin"
+        });
+
+        if (!response.ok) {
+            console.warn("โหลดรายการอาหารจาก API ไม่สำเร็จ:", response.status);
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data.success && Array.isArray(data.meals)) {
+            meals = data.meals.map(item => {
+                const createdAt = new Date(item.created_at);
+
+                return {
+                    ...item,
+                    foodName: item.food_name,
+                    date: [
+                        createdAt.getFullYear(),
+                        String(createdAt.getMonth() + 1).padStart(2, "0"),
+                        String(createdAt.getDate()).padStart(2, "0")
+                    ].join("-"),
+                    time: createdAt.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }),
+                    meal: "Meal",
+                    fromAPI: true
+                };
+            });
+
+            displayMeals();
+            updateMealChart();
+            updateWeeklyChart();
+        }
+    } catch (error) {
+        console.error("โหลดรายการอาหารผิดพลาด:", error);
+    }
+}
+
+
 // ===============================
 // TODAY'S CALORIES
 // ===============================

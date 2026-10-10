@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan History | CalorieScan</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #25283b;
+        }
+        header {
+            background: #25283b;
+            color: white;
+            padding: 22px 30px;
+        }
+        header h1 { margin: 0; font-size: 25px; }
+        main { padding: 30px; }
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #0000000d;
+            margin-bottom: 22px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+        input {
+            padding: 11px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: min(100%, 320px);
+        }
+        button, .btn {
+            display: inline-block;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #6c5ce7;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        th { background: #f7f7fb; }
+        .table-wrap { overflow-x: auto; }
+        .muted { color: #777; }
+        @media (max-width: 600px) {
+            main { padding: 15px; }
+            .card { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>📋 Scan History Manager</h1>
+    <p>CalorieScan Admin Panel</p>
+</header><main>
+    <div class="top">
+        <div>
+            <h2>Scan History</h2>
+            <p class="muted">View users' food scanning records.</p>
+        </div>
+        <a class="btn" href="/admin-dashboard/">← Back to Dashboard</a>
+    </div><section class="stats">
+    <div class="card">
+        <p class="muted">Total Scans</p>
+        <div class="stat-number">{{ total_scans }}</div>
+    </div>
+    <div class="card">
+        <p class="muted">Total Calories</p>
+        <div class="stat-number">{{ total_calories }}</div>
+        <p class="muted">kcal</p>
+    </div>
+</section>
+
+<section class="card">
+    <h3>Search Scan Records</h3>
+    <form method="get">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search username or food..."
+            value="{{ keyword }}"
+        >
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+<section class="card">
+    <h3>Scan Records</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Food Name</th>
+                    <th>Calories</th>
+                    <th>Scan Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scan in scans %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ scan.username }}</td>
+                    <td>{{ scan.food_name }}</td>
+                    <td>{{ scan.calories }} kcal</td>
+                    <td>{{ scan.scan_date }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No scan records available yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+</main>
+</body>
+</html>

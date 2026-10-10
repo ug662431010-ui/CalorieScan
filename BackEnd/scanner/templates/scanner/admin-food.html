@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Manager | CalorieScan</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #25283b;
+        }
+        header {
+            background: #25283b;
+            color: white;
+            padding: 20px 30px;
+        }
+        header h1 { margin: 0; font-size: 25px; }
+        main { padding: 30px; }
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .btn {
+            display: inline-block;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 16px;
+            background: #6c5ce7;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #0000000d;
+            margin-bottom: 22px;
+        }
+        input {
+            padding: 11px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: min(100%, 320px);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        th { background: #f7f7fb; }
+        .muted { color: #777; }
+        @media (max-width: 600px) {
+            main { padding: 15px; }
+            .card { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>🍽️ Food Manager</h1>
+    <p>CalorieScan Admin Panel</p>
+</header><main>
+    <div class="top">
+        <div>
+            <h2>Food Management</h2>
+            <p class="muted">Manage food information and calories.</p>
+        </div>
+        <a class="btn" href="/admin-dashboard/">← Back to Dashboard</a>
+    </div><section class="card">
+    <h3>Search Food</h3>
+    <form method="get">
+        <input type="text" name="q" placeholder="Search food name..."
+               value="{{ keyword }}">
+        <button class="btn" type="submit">Search</button>
+    </form>
+</section>
+
+<section class="card">
+    <h3>Food List</h3>
+    <p>Total foods: {{ total_foods }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Food Name</th>
+                <th>Calories</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food in foods %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ food.name }}</td>
+                <td>{{ food.calories }} kcal</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No food data available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+</main>
+</body>
+</html>

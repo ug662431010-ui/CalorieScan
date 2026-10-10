@@ -479,17 +479,17 @@
                 Dashboard
             </a>
 
-            <a class="menu-item" href="#">
+            <a class="menu-item" href="{% url 'admin-users' %}">
                 <span class="menu-icon">♙</span>
                 User Management
             </a>
 
-            <a class="menu-item" href="#">
+            <a class="menu-item" href="{% url 'admin-foods' %}">
                 <span class="menu-icon">♧</span>
                 Food Management
             </a>
 
-            <a class="menu-item" href="#">
+            <a class="menu-item" href="{% url 'admin-scan' %}">
                 <span class="menu-icon">▣</span>
                 Scan History
             </a>
@@ -575,7 +575,7 @@
                     <h2>Quick Actions</h2>
                 </div>
 
-                <a class="quick-link" href="#">
+                <a class="quick-link" href="{% url 'admin-users' %}">
                     <div class="quick-icon">👥</div>
                     <div>
                         <strong>Manage Users</strong>
@@ -584,7 +584,7 @@
                     <span class="arrow">›</span>
                 </a>
 
-                <a class="quick-link" href="#">
+                <a class="quick-link" href="{% url 'admin-foods' %}">
                     <div class="quick-icon">🥗</div>
                     <div>
                         <strong>Manage Foods</strong>
@@ -593,7 +593,7 @@
                     <span class="arrow">›</span>
                 </a>
 
-                <a class="quick-link" href="#">
+                <a class="quick-link" href="{% url 'admin-scan' %}">
                     <div class="quick-icon">📋</div>
                     <div>
                         <strong>View Scan History</strong>
@@ -603,35 +603,39 @@
                 </a>
             </div>
 
-            <div class="panel">
-                <div class="panel-header">
-                    <h2>System Overview</h2>
-                </div>
+        
+<div class="panel">
+    <div class="panel-header">
+        <h2>System Overview</h2>
+    </div>
 
-                <div class="quick-link">
-                    <div class="quick-icon">🛡️</div>
-                    <div>
-                        <strong>Admin Access</strong>
-                        <small>Administrator dashboard</small>
-                    </div>
-                </div>
+    <a class="quick-link" href="{% url 'admin-dashboard' %}">
+        <div class="quick-icon">🛡️</div>
+        <div>
+            <strong>Admin Access</strong>
+            <small>Administrator dashboard</small>
+        </div>
+        <span class="arrow">›</span>
+    </a>
 
-                <div class="quick-link">
-                    <div class="quick-icon">🗄️</div>
-                    <div>
-                        <strong>Database</strong>
-                        <small>Connected to Django data</small>
-                    </div>
-                </div>
+    <a class="quick-link" href="{% url 'admin-dashboard' %}">
+        <div class="quick-icon">🗄️</div>
+        <div>
+            <strong>Database</strong>
+            <small>View system overview</small>
+        </div>
+        <span class="arrow">›</span>
+    </a>
 
-                <div class="quick-link">
-                    <div class="quick-icon">📊</div>
-                    <div>
-                        <strong>Scan Activity</strong>
-                        <small>{{ total_scans|default:0 }} scans recorded</small>
-                    </div>
-                </div>
-            </div>
+    <a class="quick-link" href="{% url 'admin-scan' %}">
+        <div class="quick-icon">📊</div>
+        <div>
+            <strong>Scan Activity</strong>
+            <small>{{ total_scans|default:0 }} scans recorded</small>
+        </div>
+        <span class="arrow">›</span>
+    </a>
+</div>
 
         </section>
 

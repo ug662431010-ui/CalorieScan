@@ -46,3 +46,12 @@ def profile_setup(request):
 def admin_login(request):
     return render(request, "scanner/admin-login.html")
 # Create your views here.
+
+
+
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def admin_dashboard(request):
+    return render(request, "scanner/admin-dashboard.html")

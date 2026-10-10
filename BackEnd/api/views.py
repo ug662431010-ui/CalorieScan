@@ -170,7 +170,8 @@ def login_user(request):
 
                 return JsonResponse({
                     "success": True,
-                    "username": user.username
+                    "username": user.username,
+                    "is_admin":user.is_staff
                 })
 
             else:
@@ -348,3 +349,39 @@ def scan_food(request):
         "confidence": min(i["confidence"] for i in items),
         "items": items,
     })
+
+# =========================
+# GET MEALS
+# =========================
+
+def get_meals(request):
+    if request.method != "GET":
+        return JsonResponse({
+            "success": False,
+            "message": "GET request required."
+        }, status=405)
+
+    if not request.user.is_authenticated:
+        return JsonResponse({
+            "success": False,
+            "message": "Please login first."
+        }, status=401)
+
+    meals = Meal.objects.filter(
+        user=request.user
+    ).order_by("-created_at")
+
+    return JsonResponse({
+        "success": True,
+        "meals": [
+            {
+                "id": meal.id,
+                "food_name": meal.food_name,
+                "calories": meal.calories,
+                "created_at": meal.created_at.isoformat(),
+            }
+            for meal in meals
+        ]
+    })
+
+

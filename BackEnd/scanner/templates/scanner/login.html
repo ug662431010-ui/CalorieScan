@@ -160,7 +160,11 @@ loginForm.addEventListener("submit", async function(event) {
                 email
          );
             localStorage.setItem("calorieScanCurrentUser", JSON.stringify({email: email, name: data.username}));
-            window.location.href = "/dashboard/";
+            if (data.is_admin) {
+                window.location.href = "/admin-dashboard/";
+            } else {
+                window.location.href = "/dashboard/";
+            }
 
         } else {
 

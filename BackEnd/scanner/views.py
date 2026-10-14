@@ -1,7 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import user_passes_test
 
+
+def staff_required(view_func):
+    """เข้าได้เฉพาะ admin (is_staff) ถ้าไม่ใช่จะถูกส่งไปหน้า admin-login"""
+    return user_passes_test(
+        lambda u: u.is_authenticated and u.is_staff,
+        login_url="admin-login",
+    )(view_func)
 
 
 def index(request):
@@ -13,11 +20,7 @@ def login_page(request):
         username = request.POST.get("username", "").strip()
         password = request.POST.get("password", "")
 
-        user = authenticate(
-            request,
-            username=username,
-            password=password
-        )
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
@@ -65,22 +68,50 @@ def profile(request):
 def settings(request):
     return render(request, "scanner/settings.html")
 
+
 def profile_setup(request):
     return render(request, "scanner/peofile-setup.html")
 
-def admin_login(request):
-    return render(request, "scanner/admin-login.html")
-# Create your views here.
 
+def admin_login(request):
+    if request.method == "POST":
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is None:
+            return render(request, "scanner/admin-login.html", {
+                "error": "Invalid username or password."
+            })
+
+        if not user.is_staff:
+            return render(request, "scanner/admin-login.html", {
+                "error": "This account does not have admin access."
+            })
+
+        login(request, user)
+        return redirect("admin-dashboard")
+
+    return render(request, "scanner/admin-login.html")
+
+
+@staff_required
 def admin_dashboard(request):
     return render(request, "scanner/admin-dashboard.html")
 
+
+@staff_required
 def admin_users(request):
     return render(request, "scanner/admin-user.html")
 
+
+@staff_required
 def admin_foods(request):
     return render(request, "scanner/admin-food.html")
 
+
+@staff_required
 def admin_scan(request):
     return render(request, "scanner/admin-scan.html")
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
+from django.db import models
 
 
 def staff_required(view_func):
@@ -98,22 +99,82 @@ def admin_login(request):
 
 @staff_required
 def admin_dashboard(request):
-    return render(request, "scanner/admin-dashboard.html")
+    from django.contrib.auth.models import User
+    from api.models import Meal
+    from django.db.models import Sum
 
+    meals = Meal.objects.all()
+
+    context = {
+        "total_users": User.objects.count(),
+        "total_scans": meals.count(),
+        "total_foods": meals.values("food_name").distinct().count(),
+        "total_calories": meals.aggregate(total=Sum("calories"))["total"] or 0,
+        "recent_scans": meals.select_related("user").order_by("-created_at")[:5],
+    }
+
+    return render(request, "scanner/admin-dashboard.html", context)
 
 @staff_required
 def admin_users(request):
-    return render(request, "scanner/admin-user.html")
+    from django.contrib.auth.models import User
 
+    users = User.objects.all().order_by("id")
+    keyword = request.GET.get("q", "").strip()
+
+    if keyword:
+        users = users.filter(username__icontains=keyword) | users.filter(email__icontains=keyword)
+
+    context = {
+        "users": users,
+        "total_users": User.objects.count(),
+        "active_users": User.objects.filter(is_active=True).count(),
+        "keyword": keyword,
+    }
+
+    return render(request, "scanner/admin-user.html", context)
 
 @staff_required
 def admin_foods(request):
-    return render(request, "scanner/admin-food.html")
+    from api.models import Meal
+
+    foods = Meal.objects.all().order_by("-created_at")
+    keyword = request.GET.get("q", "").strip()
+
+    if keyword:
+        foods = foods.filter(food_name__icontains=keyword)
+
+    return render(request, "scanner/admin-food.html", {
+        "foods": foods,
+        "total_foods": foods.count(),
+        "keyword": keyword,
+    })
+
+
 
 
 @staff_required
 def admin_scan(request):
-    return render(request, "scanner/admin-scan.html")
+    from api.models import Meal
+    from django.db import models
+
+    scans = Meal.objects.select_related("user").order_by("-created_at")
+    keyword = request.GET.get("q", "").strip()
+
+    if keyword:
+        scans = scans.filter(
+            models.Q(user__username__icontains=keyword)
+            | models.Q(food_name__icontains=keyword)
+        )
+
+    return render(request, "scanner/admin-scan.html", {
+        "scans": scans,
+        "total_scans": scans.count(),
+        "total_calories": sum(item.calories for item in scans),
+        "keyword": keyword,
+    })
+
+
 
 
 def logout_view(request):
